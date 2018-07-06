@@ -4,7 +4,10 @@
   "main": "dist/client-lib.cjs.js",
   "module": "dist/client-lib.esm.js",
   "browser": "dist/client-lib.umd.js",
-  "dependencies": {},
+  "dependencies": {
+    "sockjs-client": "^1.1.5",
+    "stompjs": "^2.3.3"
+  },
   "devDependencies": {
     "rollup": "^0.60.0",
     "rollup-plugin-commonjs": "^9.1.0",
