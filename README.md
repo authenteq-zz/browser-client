@@ -1,44 +1,55 @@
-# rollup-starter-lib
+# Authenteq Browser Library
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/rollup/rollup-starter-lib.svg)](https://greenkeeper.io/)
+This is a client-side library for [Authenteq](https://authenteq.com) service. You can see built libraries for CommonJS, ESM and UMD in `build/` directory.
 
-This repo contains a bare-bones example of how to create a library using Rollup, including importing a module from `node_modules` and converting it from CommonJS.
+## Usage
 
-We're creating a library called `how-long-till-lunch`, which usefully tells us how long we have to wait until lunch, using the [ms](https://github.com/zeit/ms) package:
+### Browser
 
-```js
-console.log('it will be lunchtime in ' + howLongTillLunch());
+Download `https://github.com/authenteq/client-lib/blob/master/dist/client-lib.umd.js` and include it in your HTML file.
+
+For full code, refer to [samples](./samples/index.html) directory. Make sure to change `PARTNER ID` in the code.
+
+Code preview:
+
+```
+<script src='./build/client-lib.umd.js'></script>
+<script>
+  var partnerId = '<<YOUR PARTNER ID>>';
+  var scope = 'givenname,surname,dob,nationality,passportno,aml,kyc';
+
+  Authenteq.connect(partnerId, scope, handleOnConnect, handleOnUserAuthenticate)
+
+  function handleOnConnect(tokenId) {
+    // Generate a QR code from tokenId value
+  }
+
+  function handleOnUserAuthenticate(tokenId) {
+    // Use tokenId to query Authenteq claim endpoints
+  }
+</script>
 ```
 
-## Getting started
-
-Clone this repository and install its dependencies:
+## How To Build
 
 ```bash
-git clone https://github.com/rollup/rollup-starter-lib
-cd rollup-starter-lib
+git clone https://github.com/authenteq/client-lib
+cd client-lib
 npm install
 ```
 
 `npm run build` builds the library to `dist`, generating three files:
 
-* `dist/how-long-till-lunch.cjs.js`
+* `dist/client-lib.cjs.js`
     A CommonJS bundle, suitable for use in Node.js, that `require`s the external dependency. This corresponds to the `"main"` field in package.json
-* `dist/how-long-till-lunch.esm.js`
+* `dist/client-lib.esm.js`
     an ES module bundle, suitable for use in other people's libraries and applications, that `import`s the external dependency. This corresponds to the `"module"` field in package.json
-* `dist/how-long-till-lunch.umd.js`
+* `dist/client-lib.umd.js`
     a UMD build, suitable for use in any environment (including the browser, as a `<script>` tag), that includes the external dependency. This corresponds to the `"browser"` field in package.json
 
 `npm run dev` builds the library, then keeps rebuilding it whenever the source files change using [rollup-watch](https://github.com/rollup/rollup-watch).
 
 `npm test` builds the library, then tests it.
-
-## Variations
-
-* [babel](https://github.com/rollup/rollup-starter-lib/tree/babel) — illustrates writing the source code in ES2015 and transpiling it for older environments with [Babel](https://babeljs.io/)
-* [buble](https://github.com/rollup/rollup-starter-lib/tree/buble) — similar, but using [Bublé](https://buble.surge.sh/) which is a faster alternative with less configuration
-
-
 
 ## License
 
