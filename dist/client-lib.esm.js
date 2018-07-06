@@ -1,10 +1,10 @@
-function connect(partnerId, scope, onConnect, onUserAuthenticate) {
+function connect(partnerId, scope, onConnect, onUserAuthenticate, API_LOGIN = 'https://api.authenteq.com/login') {
   if (onConnect === undefined || onUserAuthenticate === undefined) {
     throw Error('Authenteq API::connect - both onConnect and onUserAuthenticate must be specified');
   }
 
   const socket = new SockJS(API_LOGIN);
-  const stompClient = StompJS.over(socket);
+  const stompClient = Stomp.over(socket);
 
   // Don't print debug messages into console
   stompClient.debug = function() {};
