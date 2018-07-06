@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Authenteq Sample in-browser Implementation</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+
+<body>
+  <!--[if lte IE 9]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+  <![endif]-->
+
+  <!-- Include QRJS -->
+  <script src="https://cdn.jsdelivr.net/gh/englishextra/qrjs2@0.1.6/qrjs2.min.js"></script>
+  <!-- Include SockJS -->
+  <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+  <!-- Include StompJS. Unfortunately, it's not hosted on a CDN server. -->
+  <script src="./stomp.min.js"></script>
+
+  <!-- Include Authenteq's browser build -->
+  <script src="../dist/client-lib.umd.js"></script>
+  <script type="text/javascript">
+    // Like jQuery $(document).ready()
+    document.addEventListener("DOMContentLoaded", function(event) {
+      var partnerId = '<<< INSERT YOUR PARTNER ID >>>';
+      var scope = 'givenname,surname,dob,nationality,passportno,aml,kyc';
+
+      // Connect to Authenteq API
+      Authenteq.connect(partnerId, scope, handleOnConnect, handleOnUserAuthenticate);
+    });
+
+    // Use tokenId to generate QR code
+    function handleOnConnect(tokenId) {
+      console.log('handleOnConnect', tokenId);
+
+      var imgNode = document.getElementById('qr-code');
+      imgNode.src = QRCode.generatePNG(tokenId);
+    }
+
+    // Use tokenId to request Authenteq API
+    function handleOnUserAuthenticate(tokenId) {
+      console.log('handleOnUserAuthenticate', tokenId);
+      console.log('\
+      Now you can proceed and start with authentication claims \
+      Be careful to send this requests from your backend \
+      as you need to include your API key. If you would implement \
+      it here on client-side, your API key would be exposed. \
+      ');
+
+    }
+  </script>
+
+  <h1>Authenteq Sample in-browser Implmentation</h1>
+  <img id="qr-code" width="200" height="200" alt="qr code" />
+
+</body>
+
+</html>
