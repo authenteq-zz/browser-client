@@ -14,10 +14,8 @@
     <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
   <![endif]-->
 
-  <!-- Include QRJS -->
-  <script src="https://cdn.jsdelivr.net/gh/englishextra/qrjs2@0.1.6/qrjs2.min.js"></script>
   <!-- Include SockJS -->
-  <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.1.5/dist/sockjs.min.js"></script>
   <!-- Include StompJS -->
   <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@4.0.6/lib/stomp.min.js"></script>
 
@@ -33,12 +31,14 @@
       Authenteq.connect(partnerId, scope, handleOnConnect, handleOnUserAuthenticate);
     });
 
-    // Use tokenId to generate QR code
-    function handleOnConnect(tokenId) {
-      console.log('handleOnConnect', tokenId);
+    // Display AQR code sent in data.svg. "AQR code" stands for Authenteq QR code.
+    function handleOnConnect(data) {
+      var tokenId = data.tokenId;
+      var svg = data.svg;
+      console.log('handleOnConnect::tokenId', tokenId);
 
-      var imgNode = document.getElementById('qr-code');
-      imgNode.src = QRCode.generatePNG(tokenId);
+      var imgNode = document.getElementById('aqr-code');
+      imgNode.src = 'data:image/svg+xml;base64,' + window.btoa(unescape(encodeURIComponent(svg)));
     }
 
     // Use tokenId to request Authenteq API
@@ -55,7 +55,7 @@
   </script>
 
   <h1>Authenteq Sample in-browser Implmentation</h1>
-  <img id="qr-code" width="200" height="200" alt="qr code" />
+  <img id="aqr-code" width="330" height="330" alt="AQR code" />
 
 </body>
 
