@@ -1,4 +1,8 @@
-function connect(partnerId, scope, onConnect, onUserAuthenticate, API_LOGIN = 'https://api.authenteq.com/login') {
+function connect(partnerId, scope, onConnect, onUserAuthenticate, API_LOGIN) {
+  if (API_LOGIN === undefined) {
+    API_LOGIN = 'https://api.authenteq.com/login';
+  }
+
   if (onConnect === undefined || onUserAuthenticate === undefined) {
     throw Error('Authenteq API::connect - both onConnect and onUserAuthenticate must be specified');
   }
@@ -18,7 +22,7 @@ function connect(partnerId, scope, onConnect, onUserAuthenticate, API_LOGIN = 'h
       const tokenId = data.id;
 
       // Handle tokenId to app logic, so app can display a QR code
-      onConnect(tokenId);
+      onConnect({ tokenId: tokenId, svg: data.svg });
 
       stompClient.subscribe(`/topic/authenticate.${tokenId}`, () => {
 
