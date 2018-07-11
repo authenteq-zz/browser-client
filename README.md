@@ -20,8 +20,9 @@ Code preview:
 
   Authenteq.connect(partnerId, scope, handleOnConnect, handleOnUserAuthenticate)
 
-  function handleOnConnect(tokenId) {
-    // Generate a QR code from tokenId value
+  function handleOnConnect({ tokenId, svg }) {
+    // Show AQR code stored in 'svg'. You can convert it to display as <img> source, like this:
+    // img.src = 'data:image/svg+xml;base64,' + window.btoa(unescape(encodeURIComponent(svg)));
   }
 
   function handleOnUserAuthenticate(tokenId) {
