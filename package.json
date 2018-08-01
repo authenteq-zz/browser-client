@@ -4,6 +4,10 @@
   "main": "dist/client-lib.cjs.js",
   "module": "dist/client-lib.esm.js",
   "browser": "dist/client-lib.umd.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/authenteq/browser-client.git"
+  },
   "dependencies": {
     "sockjs-client": "^1.1.5",
     "stompjs": "^2.3.3"
