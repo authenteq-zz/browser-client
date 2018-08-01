@@ -36,7 +36,7 @@ Code preview:
 
 ```bash
 git clone https://github.com/authenteq/browser-client
-cd client-lib
+cd browser-client
 npm install
 ```
 
