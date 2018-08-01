@@ -38,7 +38,7 @@
       console.log('handleOnConnect::tokenId', tokenId);
 
       var imgNode = document.getElementById('aqr-code');
-      imgNode.src = 'data:image/svg+xml;base64,' + window.btoa(unescape(encodeURIComponent(svg)));
+      imgNode.src = Authenteq.createAQRSvg(svg);
     }
 
     // Use tokenId to request Authenteq API

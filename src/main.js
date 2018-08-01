@@ -73,3 +73,7 @@ export function connect(partnerId, scope, onConnect, onUserAuthenticate, API_LOG
     }));
   });
 }
+
+export function createAQRSvg(svg) {
+  return 'data:image/svg+xml;base64,' + window.btoa(unescape(encodeURIComponent(svg)));
+}
