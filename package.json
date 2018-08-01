@@ -1,6 +1,6 @@
 {
   "name": "@authenteq/browser-client",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "main": "dist/client-lib.cjs.js",
   "module": "dist/client-lib.esm.js",
   "browser": "dist/client-lib.umd.js",
