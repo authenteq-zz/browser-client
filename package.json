@@ -4,6 +4,13 @@
   "main": "dist/client-lib.cjs.js",
   "module": "dist/client-lib.esm.js",
   "browser": "dist/client-lib.umd.js",
+  "keywords": [
+    "authenteq",
+    "kyc",
+    "identity",
+    "verification",
+    "aml"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/authenteq/browser-client.git"
