@@ -7,6 +7,16 @@
   <title>Authenteq Sample in-browser Implementation</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <style>
+    input {
+      width: 200px;
+    }
+    label {
+      display: inline-block;
+      width: 150px;
+    }
+  </style>
 </head>
 
 <body>
@@ -46,9 +56,9 @@
       imgNode.src = Authenteq.createAQRSvg(svg);
     }
 
-    // Use tokenId to request Authenteq API
-    function handleOnUserAuthenticate(tokenId) {
-      console.log('handleOnUserAuthenticate', tokenId);
+    // Use userToken to request Authenteq API
+    function handleOnUserAuthenticate(userToken) {
+      console.log('handleOnUserAuthenticate', userToken);
       console.log('\
       Now you can proceed and start with authentication claims \
       Be careful to send this requests from your backend \
@@ -56,11 +66,24 @@
       it here on client-side, your API key would be exposed. \
       ');
 
+      document.getElementById('usertoken').value = userToken;
+
     }
   </script>
 
   <h1>Authenteq Sample in-browser Implmentation</h1>
   <img id="aqr-code" width="330" height="330" alt="AQR code" />
+
+  <form action="verify-identity.php" method="POST">
+    <label>Given name</label> <input type="text" name="givenname" placeholder="John Martin" /> <br/>
+    <label>Last name</label> <input type="text" name="lastname" placeholder="McDonald" /> <br/>
+    <label>Nationality</label> <input type="text" name="nationality" placeholder="German, Germany, GER" /> <br/>
+    <label>Passport no</label> <input type="text" name="passportno" placeholder="01124456" /> <br/>
+    <label>User token</label> <input type="text" name="usertoken" id="usertoken" disabled="disabled" /> <br/>
+
+    <br/>
+    <input type="submit" value="Verify identity" />
+  </form>
 
 </body>
 
