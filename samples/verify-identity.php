@@ -1,66 +1,74 @@
 <?php
   // We should receive similar data structure:
-  // $_POST = [
-  //   "givenname" => "John Martin",
-  //   "lastname" => "McDonald",
-  //   "nationality" => "German",
-  //   "passportno" => "01124456",
-  //   "usertoken" => "b0c0e38a-f3b0-4aba-9f6c-5c67baf64a52",
-  // ];
+  $_POST = [
+    "givenname" => "John Martin",
+    "lastname" => "McDonald",
+    "nationality" => "German",
+    "passportno" => "01124456",
+    "usertoken" => "32c04cd0-eef4-4656-85c6-132a02861c53",
+  ];
 
   print_r($_POST);
 
-  function http_request($method, $url, $data = false)
+  function http_request($method, $url, $data)
   {
+    $json_data = json_encode($data);
+    // echo "======================================================================\r\n";
+    // print_r($url);
+    // print_r($data);
+    // print_r($json_data);
+
+    $options = array(
+      CURLOPT_URL            => $url,
+      CURLOPT_POST           => 1,      // make a HTTP POST request
+      CURLOPT_POSTFIELDS     => $json_data,  // payload of POST request
+      CURLOPT_HTTPHEADER     => array(  // set headers
+        "Accept: application/json",
+        "Content-Type: application/json; charset=UTF-8",
+      ),
+      CURLOPT_RETURNTRANSFER => true,   // return response
+      CURLOPT_HEADER         => false,  // don't return headers
+      CURLOPT_FOLLOWLOCATION => true,   // follow redirects
+      CURLOPT_MAXREDIRS      => 10,     // stop after 10 redirects
+      CURLOPT_ENCODING       => "",     // handle compressed
+      CURLOPT_USERAGENT      => "Chromium", // name of client
+      CURLOPT_AUTOREFERER    => true,   // set referrer on redirect
+      CURLOPT_CONNECTTIMEOUT => 120,    // time-out on connect
+      CURLOPT_TIMEOUT        => 120,    // time-out on response
+    );
+
     $curl = curl_init();
-
-    switch ($method)
-    {
-      case "POST":
-          curl_setopt($curl, CURLOPT_POST, 1);
-          if ($data)
-            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-          break;
-      case "PUT":
-          curl_setopt($curl, CURLOPT_PUT, 1);
-          break;
-      default:
-          if ($data)
-              $url = sprintf("%s?%s", $url, http_build_query($data));
-    }
-
-    curl_setopt($curl, CURLOPT_URL, $url);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt_array($curl, $options);
 
     $result = curl_exec($curl);
     curl_close($curl);
     return $result;
   }
 
-  fucntion create_payload($key, $value) {
-    $payload = [
-      "partnerId" => "<<< INSERT YOUR PARTNER ID >>>",
-      "apiKey" => "<<< INSERT YOUR API KEY >>>",
+  function create_payload($value) {
+    $payload = array(
+      "partnerId" => "ynKF89",
+      "apiKey" => "45KBODY8TwWAFjHjG1Da8h92C26n23EB",
       "userToken" => $_POST["usertoken"],
-      $key => $value,
-    ];
+      "value" => $value,
+    );
 
     return $payload;
   }
 
   $API_ROOT = "https://api.authenteq.com";
-  $API_VERIFY_CLAIM_ROOT = $API_ROOT + "/api/v1/claims";
+  $API_VERIFY_CLAIM_ROOT = $API_ROOT."/api/v1/claims";
 
-  $givenname_result = http_request("POST", $API_VERIFY_CLAIM_ROOT+'/givenname', create_payload("givenname", $_POST["givenname"]));
+  $givenname_result = http_request("POST", $API_VERIFY_CLAIM_ROOT.'/givenname', create_payload($_POST["givenname"]));
   var_dump($givenname_result);
 
-  $lastname_result = http_request("POST", $API_VERIFY_CLAIM_ROOT+'/lastname', create_payload("lastname", $_POST["lastname"]));
+  $lastname_result = http_request("POST", $API_VERIFY_CLAIM_ROOT.'/lastname', create_payload($_POST["lastname"]));
   var_dump($lastname_result);
 
-  $nationality_result = http_request("POST", $API_VERIFY_CLAIM_ROOT+'/nationality', create_payload("nationality", $_POST["nationality"]));
+  $nationality_result = http_request("POST", $API_VERIFY_CLAIM_ROOT.'/nationality', create_payload($_POST["nationality"]));
   var_dump($nationality_result);
 
-  $passportno_result = http_request("POST", $API_VERIFY_CLAIM_ROOT+'/passportno', create_payload("passportno", $_POST["passportno"]));
+  $passportno_result = http_request("POST", $API_VERIFY_CLAIM_ROOT.'/passportno', create_payload($_POST["passportno"]));
   var_dump($passportno_result);
 
 ?>
