@@ -27,6 +27,11 @@
       var partnerId = '<<< INSERT YOUR PARTNER ID >>>';
       var scope = 'givenname,surname,dob,nationality,passportno,aml,kyc';
 
+      if (partnerId === '<<< INSERT YOUR PARTNER ID >>>') {
+        console.log('Please, update your partnerId in the Javascript code in this file first!');
+        return;
+      }
+
       // Connect to Authenteq API
       Authenteq.connect(partnerId, scope, handleOnConnect, handleOnUserAuthenticate);
     });
