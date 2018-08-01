@@ -34,6 +34,12 @@ export function connect(partnerId, scope, onConnect, onUserAuthenticate, API_LOG
     const transportUrl = socket._transport.url; // eslint-disable-line no-underscore-dangle
     const sessionId = /\/([^/]+)\/websocket/.exec(transportUrl)[1];
 
+    if (window) {
+      window.addEventListener("beforeunload", () => {
+        disconnect(stompClient, 'Authenteq::Disconnect (window close)');
+      }, false);
+    }
+
     stompClient.subscribe(`/queue/${sessionId}.authenticationId`, (response) => {
       console.log('Authenteq::Connected');
       connected = true;
