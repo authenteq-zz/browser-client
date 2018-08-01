@@ -16,17 +16,18 @@ Code preview:
 <script src='./build/client-lib.umd.js'></script>
 <script>
   var partnerId = '<<YOUR PARTNER ID>>';
-  var scope = 'givenname,surname,dob,nationality,passportno,aml,kyc';
+  var scope = 'givenname,surname,dob,nationality,passportno,aml,kyc,address';
 
   Authenteq.connect(partnerId, scope, handleOnConnect, handleOnUserAuthenticate)
 
-  function handleOnConnect({ tokenId, svg }) {
+  function handleOnConnect(data) {
     // Show AQR code stored in 'svg'. You can convert it to display as <img> source, like this:
-    // img.src = 'data:image/svg+xml;base64,' + window.btoa(unescape(encodeURIComponent(svg)));
+    // img.src = Authenteq.createAQRSvg(data.svg);
   }
 
   function handleOnUserAuthenticate(tokenId) {
-    // Use tokenId to query Authenteq claim endpoints
+    // Use tokenId to query Authenteq API. Make sure to access our API
+    // from your backend, so you don't expose your `API key` in frontend.
   }
 </script>
 ```
@@ -34,7 +35,7 @@ Code preview:
 ## How To Build
 
 ```bash
-git clone https://github.com/authenteq/client-lib
+git clone https://github.com/authenteq/browser-client
 cd client-lib
 npm install
 ```
