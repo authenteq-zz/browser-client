@@ -1,12 +1,12 @@
 <?php
   // We should receive similar data structure:
-  $_POST = [
-    "givenname" => "John Martin",
-    "lastname" => "McDonald",
-    "nationality" => "German",
-    "passportno" => "01124456",
-    "usertoken" => "32c04cd0-eef4-4656-85c6-132a02861c53",
-  ];
+  // $_POST = [
+  //   "givenname" => "John Martin",
+  //   "lastname" => "McDonald",
+  //   "nationality" => "German",
+  //   "passportno" => "01124456",
+  //   "usertoken" => "32c04cd0-eef4-4656-85c6-132a02861c53",
+  // ];
 
   print_r($_POST);
 
@@ -31,7 +31,7 @@
       CURLOPT_FOLLOWLOCATION => true,   // follow redirects
       CURLOPT_MAXREDIRS      => 10,     // stop after 10 redirects
       CURLOPT_ENCODING       => "",     // handle compressed
-      CURLOPT_USERAGENT      => "Chromium", // name of client
+      CURLOPT_USERAGENT      => "",     // name of client
       CURLOPT_AUTOREFERER    => true,   // set referrer on redirect
       CURLOPT_CONNECTTIMEOUT => 120,    // time-out on connect
       CURLOPT_TIMEOUT        => 120,    // time-out on response
@@ -47,8 +47,8 @@
 
   function create_payload($value) {
     $payload = array(
-      "partnerId" => "ynKF89",
-      "apiKey" => "45KBODY8TwWAFjHjG1Da8h92C26n23EB",
+      "partnerId" => "<<< INSERT YOUR PARTNER ID >>>",
+      "apiKey" => "<<< INSERT YOUR API KEY >>>",
       "userToken" => $_POST["usertoken"],
       "value" => $value,
     );
@@ -57,18 +57,18 @@
   }
 
   $API_ROOT = "https://api.authenteq.com";
-  $API_VERIFY_CLAIM_ROOT = $API_ROOT."/api/v1/claims";
+  $API_CLAIM_ROOT = $API_ROOT."/api/v1/claims";
 
-  $givenname_result = http_request("POST", $API_VERIFY_CLAIM_ROOT.'/givenname', create_payload($_POST["givenname"]));
+  $givenname_result = http_request("POST", $API_CLAIM_ROOT.'/givenname', create_payload($_POST["givenname"]));
   var_dump($givenname_result);
 
-  $lastname_result = http_request("POST", $API_VERIFY_CLAIM_ROOT.'/lastname', create_payload($_POST["lastname"]));
+  $lastname_result = http_request("POST", $API_CLAIM_ROOT.'/lastname', create_payload($_POST["lastname"]));
   var_dump($lastname_result);
 
-  $nationality_result = http_request("POST", $API_VERIFY_CLAIM_ROOT.'/nationality', create_payload($_POST["nationality"]));
+  $nationality_result = http_request("POST", $API_CLAIM_ROOT.'/nationality', create_payload($_POST["nationality"]));
   var_dump($nationality_result);
 
-  $passportno_result = http_request("POST", $API_VERIFY_CLAIM_ROOT.'/passportno', create_payload($_POST["passportno"]));
+  $passportno_result = http_request("POST", $API_CLAIM_ROOT.'/passportno', create_payload($_POST["passportno"]));
   var_dump($passportno_result);
 
 ?>
