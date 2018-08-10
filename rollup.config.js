@@ -9,12 +9,19 @@ export default [
 		output: {
 			name: 'Authenteq',
 			file: pkg.browser,
-			format: 'umd'
+			format: 'umd',
+			globals: {
+	      Stomp: 'stompjs',
+				SockJS: 'sockjs-client',
+	    },
 		},
 		plugins: [
-			resolve(), // so Rollup can find `ms`
-			commonjs() // so Rollup can convert `ms` to an ES module
-		]
+			resolve(),
+			commonjs({
+				include: 'node_modules/**',
+			}),
+		],
+		external: ['stompjs', 'sockjs-client'],
 	},
 
 	// CommonJS (for Node) and ES module (for bundlers) build.
@@ -25,7 +32,7 @@ export default [
 	// `file` and `format` for each target)
 	{
 		input: 'src/main.js',
-		external: [],
+		external: ['stompjs', 'sockjs-client'],
 		output: [
 			{ file: pkg.main, format: 'cjs' },
 			{ file: pkg.module, format: 'es' }
