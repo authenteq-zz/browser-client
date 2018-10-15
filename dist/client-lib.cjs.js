@@ -2,10 +2,8 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
-
-var SockJS = _interopDefault(require('sockjs-client'));
-var Stomp = _interopDefault(require('stompjs'));
+// import SockJS from 'sockjs-client';
+// import Stomp from 'stompjs';
 
 var connected = false;
 
