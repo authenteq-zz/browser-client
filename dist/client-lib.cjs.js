@@ -2,8 +2,10 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-// import SockJS from 'sockjs-client';
-// import Stomp from 'stompjs';
+function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+
+var SockJS = _interopDefault(require('sockjs-client'));
+var Stomp = _interopDefault(require('stompjs'));
 
 var connected = false;
 

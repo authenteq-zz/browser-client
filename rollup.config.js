@@ -11,8 +11,8 @@ export default [
 			file: pkg.browser,
 			format: 'umd',
 			globals: {
-	      Stomp: 'stompjs',
-				SockJS: 'sockjs-client',
+	      'stompjs': 'Stomp',
+				'sockjs-client': 'SockJS',
 	    },
 		},
 		plugins: [

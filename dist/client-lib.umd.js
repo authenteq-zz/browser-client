@@ -1,11 +1,11 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-  typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  (factory((global.Authenteq = {})));
-}(this, (function (exports) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('sockjs-client'), require('stompjs')) :
+  typeof define === 'function' && define.amd ? define(['exports', 'sockjs-client', 'stompjs'], factory) :
+  (factory((global.Authenteq = {}),global.SockJS,global.Stomp));
+}(this, (function (exports,SockJS,Stomp) { 'use strict';
 
-  // import SockJS from 'sockjs-client';
-  // import Stomp from 'stompjs';
+  SockJS = SockJS && SockJS.hasOwnProperty('default') ? SockJS['default'] : SockJS;
+  Stomp = Stomp && Stomp.hasOwnProperty('default') ? Stomp['default'] : Stomp;
 
   var connected = false;
 
