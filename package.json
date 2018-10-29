@@ -16,7 +16,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "github.com:authenteq/client-lib.git"
+    "url": "github.com:authenteq/browser-client.git"
   },
   "dependencies": {
     "sockjs-client": "^1.1.5",
